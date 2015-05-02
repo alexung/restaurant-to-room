@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('restaurant-to-room:server');
+var debug = require('debug')('main');
 var http = require('http');
 
 /**
