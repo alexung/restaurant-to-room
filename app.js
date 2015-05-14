@@ -4,10 +4,29 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var expressSession = require('express-session');
+var flash = require('connect-flash');
+var connectMongo = require('connect-mongo');
 
+// custom modules:
 // routes that you can access once you npm start
+var config = require('./config');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var orders = require('./routes/orders');
+
+// we're capitalizing the first letter bc
+// we're going to get a function we'll treat like a class
+// and use 'new' on
+var MongoStore = connectMongo(expressSession);
+
+var passportConfig = require('./auth/passport-config');
+var restrict = require('./auth/restrict');
+passportConfig();
+
+mongoose.connect(config.mongoUri);
 
 var app = express();
 
@@ -23,9 +42,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//middleware
+app.use(expressSession(
+  {
+    secret: 'getting hungry',
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  }
+));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 // base path for each set of routes, can access these via npm start
 app.use('/', routes);
 app.use('/users', users);
+app.use('/orders', orders);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
