@@ -1,3 +1,6 @@
 # restaurant-to-room
-to start:
-"npm start" & "mongod &"
+TO RUN:
+"mongod &"
+and in different terminal tab:
+"npm start"
+
