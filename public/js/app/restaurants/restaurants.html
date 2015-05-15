@@ -9,8 +9,11 @@
 
 <div class="widget">
   <ul>
-    <li ng-repeat="restaurant in vm.restaurants">
-        <strong ng-bind="restaurant.name"></strong>
+    <li ng-repeat="restaurant in vm.restaurants | orderBy: 'name'">
+        <a ng-href="#/menu/{{restaurant.id}}">
+            <!-- using ng-href is a better solution to make sure that user gets to the page that they're trying to go to, rather than href-->
+            <strong ng-bind="restaurant.name"></strong> <span ng-bind="'(' + restaurant.cuisine + ')'"></span>
+        </a>
     </li>
   </ul>
 </div>

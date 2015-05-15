@@ -5,26 +5,77 @@
     .module('app')
     .controller('RestaurantsController', RestaurantsController);
 
-    //RestaurantsController.$inject = ['$http'];
+    //RestaurantsController.$inject = ['api'];
 
-    function RestaurantsController() {
-      //var vm = this;
+    function RestaurantsController($routeParams) {
       this.data = 'the data'; //use {{ vm.data }} in the view
       // bc we have controllerAs: 'vm' within route-config.js
 
-      this.restaurants = [
+     this.restaurants = [
         {
-          "name": "McDonalds"
+          "id": 1,
+          "name": "McDonalds",
+          "cuisine": "Fine Dining",
+          "menu": [
+          {
+            "name": "item1",
+            "price": 1,
+            "description": "lol it's tasty"
+          },
+          {
+            "name": "item2",
+            "price": 2,
+            "description": "very gooood"
+          }
+          ]
         },
         {
-          "name": "Burger King"
+          "id": 2,
+          "name": "Burger King",
+          "cuisine": "Gourmet Burgers",
+          "menu": [
+            {
+              "name": "item3",
+              "price": 3,
+              "description": "mmm burger king quenches my hunger"
+            },
+            {
+              "name": "item4",
+              "price": 4,
+              "description": "moar moar MOAR!"
+            }
+          ]
         },
         {
-          "name": "Carl's Junior"
+          "id": 3,
+          "name": "Carl's Junior",
+          "cuisine": "Absolute Crap",
+          "menu": [
+            {
+              "name": "item5",
+              "price": 5,
+              "description": "oooh baby baby carl's junior"
+            },
+            {
+              "name": "item6",
+              "price": 6,
+              "description": "yay last one!"
+            }
+          ]
         }
       ];
 
+      this.restaurantId = $routeParams.restId;
+      console.log("restId is " + $routeParams.restId);
+
     //   // BEGINNING if api worked
+    // var vm = this;
+
+    // api.getRestaurants(){
+      //.then(function(data){
+        //vm.restaurants = data;
+     // });
+    // }
     // $http.get('/orders/api/restaurants')
     //     .then(function(response){
     //       vm.restaurants = response.data;
