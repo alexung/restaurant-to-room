@@ -11,7 +11,7 @@
           <a href="#">
             <strong ng-bind="item.name"></strong>
           </a>
-          - <span ng-bind="item.price"></span> - <em ng-bind="item.description"></em>
+          - <span ng-bind="item.price | currency"></span> - <em ng-bind="item.description"></em>
         </li>
       </ul>
     </div>
