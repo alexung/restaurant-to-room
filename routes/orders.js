@@ -16,4 +16,12 @@ router.get('/', restrict, function(req, res, next) {
   res.render('orders/index', vm);
 });
 
+router.get('/api/restaurant-details/:restId') {
+  orderService.getRestaurantDetails(req.params.restId, function(){
+
+  })
+}
+// if we want an optional parameter in this url,
+// we'd add a ? after it
+
 module.exports = router;
