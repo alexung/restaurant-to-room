@@ -9,3 +9,6 @@ angular
   // value in the array is so that even when we
   // minify this file, the $routeProvider value is
   //untouched
+
+  // now should redirect us to
+  //localhost:3000/orders#/restaurants
