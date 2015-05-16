@@ -6,9 +6,9 @@
     .module('app')
     .controller("MenuController", MenuController);
 
-    MenuController.$inject = ['api', '$routeParams'];
+    MenuController.$inject = ['api', '$routeParams', 'ngDialog'];
 
-    function MenuController(api) {
+    function MenuController(api, $routeParams, ngDialog) {
 
       this.restaurants = [
         {
