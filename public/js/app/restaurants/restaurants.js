@@ -7,10 +7,10 @@
 
     //RestaurantsController.$inject = ['api'];
 
-    function RestaurantsController($routeParams) {
+    function RestaurantsController($routeParams, ngDialog, $scope) {
       this.data = 'the data'; //use {{ vm.data }} in the view
       // bc we have controllerAs: 'vm' within route-config.js
-
+      var vm = this;
      this.restaurants = [
         {
           "id": 1,
@@ -67,6 +67,17 @@
 
       this.restaurantId = $routeParams.restId;
       console.log("restId is " + $routeParams.restId);
+
+      vm.viewItem = function(item) {
+        vm.activeItem = item;
+        vm.activeItem.options = [];
+
+        ngDialog.open({
+          template: 'item.html',
+          className: 'ngdialog-theme-default',
+          scope: $scope
+        });
+      };
 
     //   // BEGINNING if api worked
     // var vm = this;
