@@ -3,6 +3,7 @@
 </div>
 <div class="widget">
   <strong ng-show="!vm.restaurants">Loading...</strong>
+  <input type="submit" value="Checkout" ng-show="vm.items.length > 0" ng-click="vm.checkout()" />
   <div class="category" ng-repeat="category in vm.restaurants">
     <div ng-if="vm.restaurantId == category.id">
       <h2 ng-bind="category.name"></h2>
@@ -18,4 +19,15 @@
 
 <script type="text/ng-template" id="item.html">
   <h1 ng-bind="vm.activeItem.name"></h1>
+  <div ng-repeat="optionType in vm.activeItem.children">
+    <strong ng-bind="optionType.name"></strong>
+    <ul>
+      <li ng-repeat="option in optionType.children">
+        <input type="checkbox" ng-click="vm.toggleOption(option)" />
+        <span ng-bind="option.name + ' - ' + option.price" />
+      </li>
+    </ul>
+  </div>
+  <button ng-click="vm.addItem(vm.activeItem)">Add to order</button>
+  <button ng-click="vm.cancel()">Cancel</button>
 </script>

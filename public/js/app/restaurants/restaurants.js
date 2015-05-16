@@ -5,12 +5,13 @@
     .module('app')
     .controller('RestaurantsController', RestaurantsController);
 
-    //RestaurantsController.$inject = ['api'];
+    //RestaurantsController.$inject = ['api', '$routeParams', 'ngDialog', '$scope', '$location'];
 
-    function RestaurantsController($routeParams, ngDialog, $scope) {
+    function RestaurantsController($routeParams, ngDialog, $scope, $location) {
       this.data = 'the data'; //use {{ vm.data }} in the view
       // bc we have controllerAs: 'vm' within route-config.js
       var vm = this;
+
      this.restaurants = [
         {
           "id": 1,
@@ -68,6 +69,7 @@
       this.restaurantId = $routeParams.restId;
       console.log("restId is " + $routeParams.restId);
 
+      vm.items = [];
       vm.viewItem = function(item) {
         vm.activeItem = item;
         vm.activeItem.options = [];
@@ -77,6 +79,42 @@
           className: 'ngdialog-theme-default',
           scope: $scope
         });
+      };
+
+      vm.toggleOption = function(option){
+        var index = vm.activeItem.options.indexOf(option);
+        // this means if user unchecks box, because it was already checked,
+        //remove it from the items array created above
+        if (index > -1) {
+          vm.activeItem.options.splice(index, 1);
+          return;
+        }
+        // else, push the option into the items array
+        vm.activeItem.options.push(options);
+      };
+
+      vm.addItem = function(item) {
+        var newItem = {
+          id: item.id,
+          name: item.name,
+          price: item.price
+        };
+        if (item.options.length > 0) {
+          newItem.options = item.options.map(function(item){
+            return {id: item.id, name: item.name, price: item.price};
+          });
+        }
+        vm.items.push(newItem);
+        ngDialog.close();
+        console.log(vm.items);
+      };
+
+      vm.cancel = function() {
+        ngDialog.close();
+      };
+
+      vm.checkout = function() {
+        $location.url('/payment');
       };
 
     //   // BEGINNING if api worked
