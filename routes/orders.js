@@ -22,4 +22,15 @@ router.get('/', restrict, function(req, res, next) {
 // if we want an optional parameter in this url,
 // we'd add a ? after it
 
+router.post('/api/create-order', restrict, function(req, res, next) {
+  orderService.createOrder(req.user._doc, req.body, function(err, orderId){
+    if (err) {
+      return res.status(500).json({error: 'Failed to create order'});
+    }
+    ////order_id is written with that syntax bc its mongoId
+    req.session.order_id = orderId;
+    res.json({success: true});
+  });
+});
+
 module.exports = router;
