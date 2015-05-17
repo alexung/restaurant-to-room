@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var orderSchema = new Schema({
-  refnum: String,
+  refnum: String, //supplied by ordrx, may have to subst with something else
   created: {type: Date, default: Date.now},
   user: {
     _id: Schema.Types.ObjectId,

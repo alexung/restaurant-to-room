@@ -3,6 +3,7 @@
 </div>
 <div class="widget">
   <strong ng-show="!vm.restaurants">Loading...</strong>
+  <!-- will appear if user has added atleast one item -->
   <input type="submit" value="Checkout" ng-show="vm.items.length > 0" ng-click="vm.checkout()" />
   <div class="category" ng-repeat="category in vm.restaurants">
     <div ng-if="vm.restaurantId == category.id">

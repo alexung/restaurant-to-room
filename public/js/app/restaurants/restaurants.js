@@ -90,7 +90,7 @@
           return;
         }
         // else, push the option into the items array
-        vm.activeItem.options.push(options);
+        vm.activeItem.options.push(option);
       };
 
       vm.addItem = function(item) {
@@ -105,16 +105,28 @@
           });
         }
         vm.items.push(newItem);
-        ngDialog.close();
+        ngDialog.closeAll();
         console.log(vm.items);
       };
 
       vm.cancel = function() {
-        ngDialog.close();
+        ngDialog.closeAll();
       };
 
       vm.checkout = function() {
-        $location.url('/payment');
+        var food = {
+          restId: $routeParams.restId,
+          restName: vm.restaurant.name,
+          items: vm.items
+        };
+        api.createOrder(food)
+          .then(function(data){
+            if (data.success) {
+              return $location.url('/payment');
+            }
+            // quick and dirty error message
+            alert('Something went wrong...');
+          });
       };
 
     //   // BEGINNING if api worked
