@@ -27,6 +27,7 @@ router.post('/api/create-order', restrict, function(req, res, next) {
     if (err) {
       return res.status(500).json({error: 'Failed to create order'});
     }
+    // if NO error...
     ////order_id is written with that syntax bc its mongoId
     req.session.order_id = orderId;
     res.json({success: true});
