@@ -18,6 +18,14 @@
         templateUrl: 'js/app/menu/menu.html',
         controller: 'RestaurantsController',
         controllerAs: 'vm'
+      })
+      .when('/payment', {
+        templateUrl: '/js/app/payment/payment.html',
+        controller: 'PaymentController',
+        controllerAs: 'vm'
+      })
+      .when('/confirmation', {
+        templateUrl: '/js/app/confirmation/confirmation.html'
       });
   }
 }());
