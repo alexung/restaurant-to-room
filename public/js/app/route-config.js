@@ -23,6 +23,9 @@
         templateUrl: '/js/app/payment/payment.html',
         controller: 'PaymentController',
         controllerAs: 'vm'
+      })
+      .when('/confirmation', {
+        templateUrl: '/js/app/confirmation/confirmation.html'
       });
   }
 }());

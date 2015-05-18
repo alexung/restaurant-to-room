@@ -11,7 +11,8 @@
     return {
       getRestaurants: getRestaurants,
       getRestaurantDetails: getRestaurantDetails,
-      createOrder: createOrder
+      createOrder: createOrder,
+      placeOrder: placeOrder
     };
 
     function getRestaurants() {
@@ -34,5 +35,13 @@
           return response.data;
         });
     }
+
+    function placeOrder(card){
+      return $http.post('/orders/api/place-order', card)
+        .then(function(response) {
+          return response.data;
+        });
+    }
+
   }
 }());
