@@ -7,7 +7,7 @@
 
     //RestaurantsController.$inject = ['api', '$routeParams', 'ngDialog', '$scope', '$location'];
 
-    function RestaurantsController($routeParams, ngDialog, $scope, $location) {
+    function RestaurantsController(api, $routeParams, ngDialog, $scope, $location) {
       this.data = 'the data'; //use {{ vm.data }} in the view
       // bc we have controllerAs: 'vm' within route-config.js
       var vm = this;
@@ -116,17 +116,20 @@
       vm.checkout = function() {
         var food = {
           restId: $routeParams.restId,
-          restName: vm.restaurant.name,
+          //restName: vm.restaurant.name,
           items: vm.items
         };
-        api.createOrder(food)
-          .then(function(data){
-            if (data.success) {
-              return $location.url('/payment');
-            }
-            // quick and dirty error message
-            alert('Something went wrong...');
-          });
+        return $location.url('/payment');
+        //BEGIN if api worked
+        // api.createOrder(food)
+        //   .then(function(data){
+        //     if (data.success) {
+        //       return $location.url('/payment');
+        //     }
+        //     // quick and dirty error message
+        //     alert('Something went wrong...');
+        //   });
+        // END if api worked
       };
 
     //   // BEGINNING if api worked

@@ -11,7 +11,7 @@ exports.createOrder = function(user, food, next) {
     user: user,
     food: food
   });
-  order.save(function(err, saveOrder){
+  order.save(function(err, saveOrder) {
     if (!err) {
       return next(null, savedOrder._id);
     }
